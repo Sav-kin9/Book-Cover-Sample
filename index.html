@@ -89,7 +89,7 @@
             box-shadow: 0 2px 4px rgba(0, 128, 128, 0.3);
         }
 
-        /* --- TITLES (UNCHANGED) --- */
+        /* --- TITLES --- */
         .title-line-1,
         .title-line-3 {
             font-size: 62px;
@@ -113,9 +113,9 @@
         /* --- SUBTITLE (BOLDER + DECORATIVE FRAME) --- */
         .subtitle {
             font-family: 'Lato', sans-serif;
-            font-weight: 700; /* Changed from 300 to 700 */
-            font-size: 22px; /* Increased from 20px */
-            color: #333; /* Darkened from #444 */
+            font-weight: 700;
+            font-size: 22px;
+            color: #333;
             line-height: 1.6;
             max-width: 80%;
             margin: 40px auto;
@@ -145,59 +145,12 @@
             bottom: 0;
         }
 
-        /* --- ICONS (DECORATED CIRCLES) --- */
-        .icons {
-            display: flex;
-            gap: 25px;
-            margin-top: 30px;
-            justify-content: center;
-        }
-
-        .icon {
-            font-size: 28px;
-            color: white;
-            width: 50px;
-            height: 50px;
-            background: #008080;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0, 128, 128, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .icon::after {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border: 2px solid rgba(0, 128, 128, 0.3);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        .icon:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 8px 16px rgba(0, 128, 128, 0.4);
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.7; transform: scale(0.95); }
-            50% { opacity: 0.3; transform: scale(1.05); }
-            100% { opacity: 0.7; transform: scale(0.95); }
-        }
-
         /* --- CORNER DECORATIONS (BOLD & PROMINENT) --- */
         .corner-decoration {
             position: absolute;
-            width: 120px; /* Increased from 80px */
-            height: 120px; /* Increased from 80px */
-            border: 4px solid #008080; /* Thickened from 1px */
+            width: 120px;
+            height: 120px;
+            border: 4px solid #008080;
             z-index: 3;
             opacity: 0.8;
         }
@@ -237,7 +190,7 @@
 </head>
 <body>
     <div class="book-cover">
-        <!-- Bold corner decorations (now 4x thicker) -->
+        <!-- Bold corner decorations -->
         <div class="corner-decoration top-left"></div>
         <div class="corner-decoration top-right"></div>
         <div class="corner-decoration bottom-left"></div>
@@ -253,13 +206,6 @@
             
             <!-- Subtitle with stronger font and framed background -->
             <p class="subtitle">Everything You Need to Know to Start<br>Earning Online (Even Without Experience)</p>
-            
-            <!-- Decorated icons with animation -->
-            <div class="icons">
-                <div class="icon">💼</div>
-                <div class="icon">🌐</div>
-                <div class="icon">🏠</div>
-            </div>
         </div>
     </div>
 </body>
