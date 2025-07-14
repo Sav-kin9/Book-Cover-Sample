@@ -6,7 +6,7 @@
     <title>How to Land Remote Jobs - Premium Book Cover</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,400;1,500&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -109,14 +109,17 @@
 
         .subtitle {
             font-family: 'Lato', sans-serif;
-            font-weight: 300;
-            font-size: 20px;
-            color: #444;
-            line-height: 1.6;
+            font-weight: 700; /* Changed from 300 to 700 for boldness */
+            font-size: 22px; /* Increased from 20px */
+            color: #333; /* Darkened from #444 for better contrast */
+            line-height: 1.5;
             max-width: 80%;
             margin: 40px auto;
-            padding: 20px 0;
+            padding: 25px;
             position: relative;
+            background-color: rgba(255, 255, 255, 0.85); /* Added opaque background */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .subtitle::before,
@@ -125,36 +128,17 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 1px;
-            background: rgba(0, 128, 128, 0.3);
+            width: 100px; /* Increased from 60px */
+            height: 2px; /* Thicker lines */
+            background: linear-gradient(90deg, transparent, #008080, transparent); /* Gradient effect */
         }
 
         .subtitle::before {
-            top: 0;
+            top: 10px;
         }
 
         .subtitle::after {
-            bottom: 0;
-        }
-
-        .icons {
-            display: flex;
-            gap: 25px;
-            margin-top: 30px;
-            justify-content: center;
-        }
-
-        .icon {
-            font-size: 28px;
-            color: #008080;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-
-        .icon:hover {
-            opacity: 1;
-            transform: translateY(-3px);
+            bottom: 10px;
         }
 
         /* Decorative elements */
@@ -208,12 +192,6 @@
             <h2 class="title-line-2">REMOTE JOBS IN</h2>
             <h1 class="title-line-3">ANY FIELD</h1>
             <p class="subtitle">Everything You Need to Know to Start<br>Earning Online (Even Without Experience)</p>
-            
-            <div class="icons">
-                <div class="icon">💼</div>
-                <div class="icon">🌐</div>
-                <div class="icon">🏠</div>
-            </div>
         </div>
     </div>
 </body>
