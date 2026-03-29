@@ -2,161 +2,1205 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to Land Remote Jobs - Premium Book Cover</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,400;1,500&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mr. D — Analyst. Builder. Strategist.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      font-family: 'Montserrat', sans-serif;
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dim: #8A6F35;
+      --black: #080808;
+      --surface: #0E0E0E;
+      --surface-2: #141414;
+      --surface-3: #1C1C1C;
+      --text: #F0EDE6;
+      --text-muted: #7A7572;
+      --text-dim: #3D3A38;
+      --border: rgba(201,168,76,0.15);
     }
 
-    .book-cover {
-      width: 600px;
-      height: 800px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor-dot {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(201,168,76,0.5);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* NOISE TEXTURE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.35;
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+      backdrop-filter: blur(2px);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--text); font-weight: 300; }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.25s;
       position: relative;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold) !important;
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .nav-cta:hover {
+      background: var(--gold) !important;
+      color: var(--black) !important;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 60px 80px;
+      position: relative;
       overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -100px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .hero-label::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 7vw, 96px);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title strong {
+      font-weight: 700;
+      color: var(--gold);
+      display: block;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin: 28px 0 44px;
+      max-width: 380px;
+      line-height: 2;
+    }
+
+    .hero-tagline span {
+      color: var(--gold);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--black);
+      padding: 15px 36px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold-light);
+      transform: translateX(-100%);
+      transition: transform 0.3s;
+      z-index: -1;
+    }
+    .btn-primary:hover { background: var(--gold-light); }
+
+    .btn-ghost {
+      color: var(--text-muted);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.3s;
+    }
+    .btn-ghost:hover { color: var(--gold); }
+    .btn-ghost span {
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.3s;
+    }
+    .btn-ghost:hover span { width: 40px; }
+
+    /* HERO IMAGE */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 600px;
+    }
+
+    .hero-img-frame {
+      position: relative;
+      width: 360px;
+      height: 480px;
+    }
+
+    .hero-img-frame::before {
+      content: '';
+      position: absolute;
+      top: -16px; right: -16px;
+      width: 100%; height: 100%;
+      border: 1px solid var(--gold);
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    .hero-img-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -16px; left: -16px;
+      width: 80%; height: 80%;
+      background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
+      z-index: 0;
+    }
+
+    .hero-img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      position: relative;
+      z-index: 1;
+      filter: grayscale(20%) contrast(1.05);
+    }
+
+    .hero-stat-badge {
+      position: absolute;
+      bottom: -20px;
+      left: -40px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      z-index: 2;
+    }
+
+    .hero-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .hero-ticker {
+      position: absolute;
+      top: 40px;
+      right: -20px;
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      padding: 12px 18px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      z-index: 2;
+    }
+
+    .ticker-label {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .ticker-value {
+      color: #4CAF50;
+      font-weight: 500;
+      margin-top: 4px;
+      font-size: 12px;
+    }
+
+    /* MARQUEE */
+    .marquee-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 60px;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .marquee-item span {
+      color: var(--gold);
+      font-size: 16px;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 120px 60px;
+      position: relative;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 60px;
+    }
+
+    .section-title strong { font-weight: 700; }
+
+    /* ABOUT */
+    .about {
+      background: var(--surface);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      line-height: 2;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .about-highlight {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+      border-left: 2px solid var(--gold);
+      padding-left: 24px;
+      line-height: 1.5;
+      margin: 40px 0;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .stat-box {
+      background: var(--surface-2);
+      padding: 32px;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .stat-box:hover { border-color: var(--gold); }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-desc {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .service-card {
+      background: var(--surface-2);
+      padding: 48px 36px;
+      border: 1px solid transparent;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { border-color: var(--border); background: var(--surface-3); }
+
+    .service-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 60px;
+      font-weight: 700;
+      color: var(--text-dim);
+      line-height: 1;
+      margin-bottom: 24px;
+      transition: color 0.4s;
+    }
+
+    .service-card:hover .service-number { color: var(--gold-dim); }
+
+    .service-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .service-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    .service-arrow {
+      display: inline-block;
+      margin-top: 28px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.3s;
+    }
+
+    .service-card:hover .service-arrow {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* PORTFOLIO */
+    .portfolio { background: var(--surface); }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 2px;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface-2);
+      cursor: none;
+    }
+
+    .project-card:nth-child(1) { grid-row: span 2; }
+
+    .project-img {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease, filter 0.6s ease;
+      filter: grayscale(30%) brightness(0.8);
+    }
+
+    .project-card:hover .project-img {
+      transform: scale(1.04);
+      filter: grayscale(0%) brightness(0.9);
+    }
+
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 50%);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 60px;
-      box-sizing: border-box;
-      background: 
-        linear-gradient(rgba(0, 48, 96, 0.85), rgba(0, 48, 96, 0.85)),
-        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmVtb3RlJTIwd29ya3xlbnwwfDJ8MHx8&ixlib=rb-1.2.1&q=80&w=1080TIwd29ya3xlbnwwfDJ8MHx8&ixlib=rb-1.2.1&q=80&w=1080');
-      background-size: cover;
-      background-position: center;
-      border-radius: 4px;
+      justify-content: flex-end;
+      padding: 36px;
     }
 
-    .content-wrapper {
-      position: relative;
-      z-index: 2;
-      width: 100%;
+    .project-tag {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
     }
 
-    .author {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 18px;
-      color: #ffffffcc;
-      margin-bottom: 40px;
-      letter-spacing: 1px;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-    }
-
-    .author::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .title-line-1,
-    .title-line-3 {
-      font-size: 62px;
-      font-weight: 900;
-      color: #FFD700; /* Gold */
-      margin: 10px 0;
-      line-height: 1.1;
-      letter-spacing: -1px;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    }
-
-    .title-line-2 {
-      font-size: 38px;
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
       font-weight: 700;
-      color: #ffffff;
-      margin: 15px 0;
-      line-height: 1.1;
-      letter-spacing: -0.5px;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      color: var(--text);
     }
 
-    .subtitle {
-      font-family: 'Lato', sans-serif;
-      font-weight: 600;
-      font-size: 20px;
-      color: #ffffff;
-      line-height: 1.6;
-      max-width: 80%;
-      margin: 40px auto 0;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* TRADING SECTION */
+    .trading {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
     }
 
-    .corner-decoration {
+    .trading::before {
+      content: '';
       position: absolute;
-      width: 80px;
-      height: 80px;
-      border: 3px solid rgba(255, 255, 255, 0.15);
-      z-index: 1;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--gold-dim), transparent);
+      opacity: 0.3;
     }
 
-    .top-left {
-      top: 30px;
-      left: 30px;
-      border-right: none;
-      border-bottom: none;
+    .trading-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
     }
 
-    .top-right {
-      top: 30px;
-      right: 30px;
-      border-left: none;
-      border-bottom: none;
+    .trading-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 40px;
     }
 
-    .bottom-left {
-      bottom: 30px;
-      left: 30px;
-      border-right: none;
-      border-top: none;
+    .metric-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 24px;
+      position: relative;
     }
 
-    .bottom-right {
-      bottom: 30px;
-      right: 30px;
-      border-left: none;
-      border-top: none;
+    .metric-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .metric-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .metric-sub {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    .metric-up { color: #4CAF50; }
+    .metric-down { color: #ef5350; }
+
+    .chart-placeholder {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      height: 300px;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      gap: 6px;
+      overflow: hidden;
+    }
+
+    .bar {
+      flex: 1;
+      background: var(--gold);
+      opacity: 0.3;
+      border-radius: 2px 2px 0 0;
+      transition: opacity 0.3s;
+    }
+
+    .bar:hover { opacity: 0.8; }
+    .bar.win { opacity: 0.6; }
+    .bar.loss { background: #ef5350; opacity: 0.4; }
+
+    /* TESTIMONIALS */
+    .testimonials { background: var(--surface); }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .testimonial-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+      transition: border-color 0.3s;
+    }
+
+    .testimonial-card:hover { border-color: var(--gold-dim); }
+
+    .quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 0.6;
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .quote-author {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .quote-role {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--black);
+      text-align: center;
+      padding: 160px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    }
+
+    .cta-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 8vw, 100px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+
+    .cta-title strong { font-weight: 700; color: var(--gold); }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 24px;
+      justify-content: flex-end;
+    }
+
+    .social-links a {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+
+    .social-links a:hover { color: var(--gold); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .hero-label { animation: fadeUp 0.8s ease both; }
+    .hero-title { animation: fadeUp 0.8s ease 0.15s both; }
+    .hero-tagline { animation: fadeUp 0.8s ease 0.3s both; }
+    .hero-actions { animation: fadeUp 0.8s ease 0.45s both; }
+    .hero-visual { animation: fadeIn 1.2s ease 0.4s both; }
+
+    /* DIVIDER */
+    .gold-line {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 0 auto 60px;
+      display: block;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 20px 28px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 100px 28px 60px; text-align: center; }
+      .hero-label { justify-content: center; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { height: 380px; margin-top: 40px; }
+      .hero-img-frame { width: 260px; height: 340px; }
+      .hero-stat-badge { left: 0; bottom: -10px; }
+      section { padding: 80px 28px; }
+      .about-grid, .trading-layout, .testimonial-grid { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .project-card:nth-child(1) { grid-row: span 1; }
+      footer { grid-template-columns: 1fr; text-align: center; }
+      .social-links { justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <div class="book-cover">
-    <div class="corner-decoration top-left"></div>
-    <div class="corner-decoration top-right"></div>
-    <div class="corner-decoration bottom-left"></div>
-    <div class="corner-decoration bottom-right"></div>
 
-    <div class="content-wrapper">
-      <div class="author">WRITTEN BY: CHRISTABEL BASSEY</div>
-      <h1 class="title-line-1">HOW TO LAND</h1>
-      <h2 class="title-line-2">REMOTE JOBS IN</h2>
-      <h1 class="title-line-3">ANY FIELD</h1>
-      <p class="subtitle">
-        Everything You Need to Know to Start<br />
-        Earning Online — Even Without Experience.
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Mr.<span>D</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#trading">Trading</a></li>
+      <li><a href="#testimonials">Clients</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-label">Based in Nigeria — Available Worldwide</div>
+      <h1 class="hero-title">
+        <em>The</em><br>
+        <strong>Analyst.</strong><br>
+        Builder.
+      </h1>
+      <p class="hero-tagline">
+        Web Developer · Brand Strategist · Forex Trader<br>
+        <span>XAUUSD · NAS100 · Digital Excellence</span>
       </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-ghost"><span></span>Book a Call</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-img-frame">
+        <img src="https://mrd-portfolio.vercel.app/images/MRD.jpg" alt="Mr. D" />
+      </div>
+      <div class="hero-stat-badge">
+        <div class="hero-stat-num">3+</div>
+        <div class="hero-stat-label">Years Building</div>
+      </div>
+      <div class="hero-ticker">
+        <div class="ticker-label">XAU/USD</div>
+        <div class="ticker-value">▲ 2,638.40</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <div class="marquee-item"><span>◆</span> Web Development</div>
+      <div class="marquee-item"><span>◆</span> Brand Strategy</div>
+      <div class="marquee-item"><span>◆</span> Forex Trading</div>
+      <div class="marquee-item"><span>◆</span> XAUUSD Analysis</div>
+      <div class="marquee-item"><span>◆</span> Digital Identity</div>
+      <div class="marquee-item"><span>◆</span> NAS100 Strategy</div>
+      <div class="marquee-item"><span>◆</span> Mr. D The Analyst</div>
+      <div class="marquee-item"><span>◆</span> Precision. System. Discipline.</div>
+      <!-- duplicate for seamless loop -->
+      <div class="marquee-item"><span>◆</span> Web Development</div>
+      <div class="marquee-item"><span>◆</span> Brand Strategy</div>
+      <div class="marquee-item"><span>◆</span> Forex Trading</div>
+      <div class="marquee-item"><span>◆</span> XAUUSD Analysis</div>
+      <div class="marquee-item"><span>◆</span> Digital Identity</div>
+      <div class="marquee-item"><span>◆</span> NAS100 Strategy</div>
+      <div class="marquee-item"><span>◆</span> Mr. D The Analyst</div>
+      <div class="marquee-item"><span>◆</span> Precision. System. Discipline.</div>
     </div>
   </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">About</div>
+        <h2 class="section-title">Precision in<br><strong>every domain.</strong></h2>
+        <p>I'm Mr. D — a creative web developer, brand strategist, and systematic forex trader operating at the intersection of design, technology, and markets.</p>
+        <p>My work is built on <strong>systems and discipline</strong>. Whether I'm architecting a brand's digital identity or executing a gold trade, every decision is deliberate, data-driven, and built to scale.</p>
+        <div class="about-highlight">
+          "I don't build things that look good.<br>I build things that <em>work</em> good."
+        </div>
+        <p>From University of Uyo to the charts, I've merged analytical thinking with creative execution to build a reputation that speaks for itself — Mr. D the Analyst.</p>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">12+</div>
+          <div class="stat-desc">Projects delivered</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">60%</div>
+          <div class="stat-desc">Gold buy win rate</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">89%</div>
+          <div class="stat-desc">NAS100 sell rate</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">∞</div>
+          <div class="stat-desc">Drive to dominate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-label">Services</div>
+    <h2 class="section-title">What I<br><strong>deliver.</strong></h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <div class="service-name">Web Design & Dev</div>
+        <p class="service-desc">Clean, responsive, conversion-focused websites for brands and businesses who refuse to be average. Built to perform, designed to impress.</p>
+        <div class="service-arrow">Explore →</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <div class="service-name">Brand Strategy</div>
+        <p class="service-desc">Full identity development — from positioning and visual language to tone of voice. Your brand will have a direction, a story, and an edge.</p>
+        <div class="service-arrow">Explore →</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <div class="service-name">Forex & Gold Trading</div>
+        <p class="service-desc">Systematic XAUUSD and NAS100 strategies with proven win rates. Analysis, mentorship, and insight from a trader who runs by the rulebook.</p>
+        <div class="service-arrow">Explore →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="portfolio" id="work">
+    <div class="section-label">Work</div>
+    <h2 class="section-title">Featured<br><strong>projects.</strong></h2>
+    <div class="portfolio-grid">
+      <div class="project-card">
+        <img src="https://mrd-portfolio.vercel.app/images/urbannest.jpg" alt="UrbanNest" class="project-img" />
+        <div class="project-overlay">
+          <div class="project-tag">Web Design · UX</div>
+          <div class="project-title">UrbanNest Booking Platform</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://mrd-portfolio.vercel.app/images/vaultabank.jpg" alt="VaultaBank" class="project-img" />
+        <div class="project-overlay">
+          <div class="project-tag">Fintech · Brand</div>
+          <div class="project-title">VaultaBank Digital Identity</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://mrd-portfolio.vercel.app/images/mr_d.jpg" alt="Mr. D" class="project-img" />
+        <div class="project-overlay">
+          <div class="project-tag">Personal Branding</div>
+          <div class="project-title">Mr. D — Brand & Portfolio</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING -->
+  <section class="trading" id="trading">
+    <div class="trading-layout">
+      <div>
+        <div class="section-label">Trading</div>
+        <h2 class="section-title">Markets are<br><strong>my edge.</strong></h2>
+        <p style="color:var(--text-muted); font-size:13px; line-height:2; margin-bottom: 20px;">
+          I trade XAUUSD and NAS100 with a strict, data-backed rulebook. No guesswork. No emotions. Just systematic execution and continuous refinement.
+        </p>
+        <p style="color:var(--text-muted); font-size:13px; line-height:2;">
+          My Phantom Gold strategy (v2.0) and NAS100 sell-only system are built on months of backtesting, live audits, and psychological discipline.
+        </p>
+        <div class="trading-metrics">
+          <div class="metric-card">
+            <div class="metric-label">Gold Buy Rate</div>
+            <div class="metric-val">60%</div>
+            <div class="metric-sub metric-up">↑ Strong</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">NAS100 Sells</div>
+            <div class="metric-val">89%</div>
+            <div class="metric-sub metric-up">↑ Dominant</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Gold Sells</div>
+            <div class="metric-val">30%</div>
+            <div class="metric-sub metric-down">↓ Avoided</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Primary Pair</div>
+            <div class="metric-val" style="font-size:24px;">XAU</div>
+            <div class="metric-sub">Gold / USD</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="chart-placeholder" id="chart">
+        </div>
+        <p style="font-size:10px; color:var(--text-dim); margin-top: 12px; letter-spacing: 0.1em; text-transform:uppercase;">Simulated performance distribution · XAUUSD</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">What clients<br><strong>say.</strong></h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">Mr. D gave my brand life and my business a digital presence I never imagined was possible. He didn't just design — he strategized.</p>
+        <div class="quote-author">Jessica Ade</div>
+        <div class="quote-role">Founder, Independent Brand</div>
+      </div>
+      <div class="testimonial-card">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">The precision and discipline he brings to his work is unlike anything I've seen. His trading analysis is sharp, structured, and profitable.</p>
+        <div class="quote-author">Verified Mentee</div>
+        <div class="quote-role">Forex Trader</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="cta-eyebrow">Let's work together</div>
+    <h2 class="cta-title">
+      Ready to<br><strong>elevate?</strong>
+    </h2>
+    <a href="mailto:contact@mrd.com" class="btn-primary">Book a Discovery Call</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Mr.D</div>
+    <div class="footer-copy">© 2025 Mr. D. All rights reserved.</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/uwem_mr_d" target="_blank">Instagram</a>
+      <a href="https://www.x.com/mrd_uwem" target="_blank">X (Twitter)</a>
+      <a href="#" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
+    });
+
+    function animateRing() {
+      rx += (mx - rx - 18) * 0.12;
+      ry += (my - ry - 18) * 0.12;
+      ring.style.transform = `translate(${rx}px, ${ry}px)`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        dot.style.transform += ' scale(2)';
+        ring.style.width = '60px';
+        ring.style.height = '60px';
+        ring.style.opacity = '0.5';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.opacity = '1';
+      });
+    });
+
+    // Generate chart bars
+    const chart = document.getElementById('chart');
+    const bars = [40,65,55,80,45,70,90,60,75,85,50,95,65,78,88,55,72,83,68,91,77,62,85,70,93,58,80,74,88,65];
+    bars.forEach((h, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'bar' + (h > 65 ? ' win' : ' loss');
+      bar.style.height = h + '%';
+      bar.style.animationDelay = (i * 0.05) + 's';
+      chart.appendChild(bar);
+    });
+
+    // Intersection observer for scroll reveals
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-card, .stat-box, .testimonial-card, .metric-card, .project-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease, border-color 0.3s';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
