@@ -3,1204 +3,1009 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mr. D — Analyst. Builder. Strategist.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Mr. D The Analyst — Systematic XAUUSD and NAS100 trader. Precision strategies, backtested edge, and trading mentorship."/>
+  <meta property="og:title" content="Mr. D The Analyst"/>
+  <meta property="og:description" content="Systematic XAUUSD and NAS100 trader. Precision. System. Discipline."/>
+  <meta property="og:type" content="website"/>
+  <title>Mr. D The Analyst — XAUUSD · NAS100 · Precision Trading</title>
+
+  <!-- PERFORMANCE: preconnect before font load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <!-- Only load weights we actually use; font-display:swap prevents render block -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,700;1,300&family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+
   <style>
+    /* ── TOKENS ───────────────────────────────────────────────── */
     :root {
-      --gold: #C9A84C;
-      --gold-light: #E8C97A;
-      --gold-dim: #8A6F35;
-      --black: #080808;
-      --surface: #0E0E0E;
-      --surface-2: #141414;
-      --surface-3: #1C1C1C;
-      --text: #F0EDE6;
-      --text-muted: #7A7572;
-      --text-dim: #3D3A38;
-      --border: rgba(201,168,76,0.15);
+      --gold:      #C9A84C;
+      --gold-lt:   #E2C06A;
+      --gold-dk:   #5C4D22;
+      --green:     #27AE60;
+      --red:       #C0392B;
+      --black:     #05050A;
+      --s0:        #0A0A10;   /* surface level 0 */
+      --s1:        #0F0F18;   /* surface level 1 */
+      --s2:        #161622;   /* surface level 2 */
+      --s3:        #1E1E2C;   /* surface level 3 */
+      --ink:       #E8E4DC;
+      --ink-2:     #6A6870;
+      --ink-3:     #2A292E;
+      --bdr:       rgba(201,168,76,.13);
+      --bdr-hi:    rgba(201,168,76,.38);
+      --font-ser:  'Cormorant Garamond', Georgia, serif;
+      --font-mono: 'DM Mono', 'Courier New', monospace;
+      --font-sans: 'Syne', system-ui, sans-serif;
+      --ease-out:  cubic-bezier(.16,1,.3,1);
+      --ease-in:   cubic-bezier(.7,0,.84,0);
     }
 
+    /* ── RESET ────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
     body {
-      background: var(--black);
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 14px;
-      line-height: 1.7;
-      overflow-x: hidden;
-      cursor: none;
+      background: var(--black); color: var(--ink);
+      font-family: var(--font-mono); font-size: 13px; line-height: 1.75;
+      overflow-x: hidden; cursor: none;
     }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
 
-    /* CUSTOM CURSOR */
-    .cursor-dot {
-      width: 8px; height: 8px;
-      background: var(--gold);
-      border-radius: 50%;
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease;
-    }
-    .cursor-ring {
-      width: 36px; height: 36px;
-      border: 1px solid rgba(201,168,76,0.5);
-      border-radius: 50%;
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9998;
-      transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-    }
-
-    /* NOISE TEXTURE OVERLAY */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9997;
-      opacity: 0.35;
-    }
-
-    /* SCROLLBAR */
-    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar { width: 2px; }
     ::-webkit-scrollbar-track { background: var(--black); }
-    ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dk); }
 
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 24px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
-      backdrop-filter: blur(2px);
+    /* ── CUSTOM CURSOR ────────────────────────────────────────── */
+    /* will-change only added via JS when cursor is moving */
+    #cur-dot, #cur-ring {
+      position: fixed; top: 0; left: 0;
+      border-radius: 50%; pointer-events: none; z-index: 9999;
     }
+    #cur-dot  { width: 6px; height: 6px; background: var(--gold); margin: -3px 0 0 -3px; }
+    #cur-ring {
+      width: 32px; height: 32px; margin: -16px 0 0 -16px;
+      border: 1px solid rgba(201,168,76,.4);
+      transition: transform .06s linear, width .25s var(--ease-out), height .25s var(--ease-out), opacity .25s;
+    }
+    body.c-hover #cur-ring { width: 52px; height: 52px; opacity: .45; }
+
+    /* ── NOISE OVERLAY — canvas-based, cheap ─────────────────── */
+    #noise {
+      position: fixed; inset: 0; z-index: 9990;
+      pointer-events: none; opacity: .28;
+      /* actual noise drawn by JS once at startup */
+    }
+
+    /* ── NAV ──────────────────────────────────────────────────── */
+    nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 600;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 56px;
+      /* promote to own GPU layer so backdrop-filter is cheap */
+      transform: translateZ(0);
+      background: rgba(5,5,10,.92);
+      border-bottom: 1px solid transparent;
+      backdrop-filter: blur(12px) saturate(1.4);
+      transition: border-color .4s;
+    }
+    nav.scrolled { border-bottom-color: var(--bdr); }
 
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--gold);
-      text-decoration: none;
-      letter-spacing: 0.05em;
+      font-family: var(--font-ser); font-size: 19px; font-weight: 700;
+      color: var(--gold); letter-spacing: .05em; display: flex; align-items: baseline; gap: 6px;
     }
-    .nav-logo span { color: var(--text); font-weight: 300; }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      list-style: none;
+    .nav-logo-tag {
+      font-family: var(--font-mono); font-size: 9px; font-weight: 400;
+      letter-spacing: .28em; text-transform: uppercase; color: var(--ink-2);
     }
-
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
     .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transition: color 0.25s;
-      position: relative;
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2);
+      transition: color .2s; position: relative;
     }
     .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold);
-      transition: width 0.3s ease;
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--gold);
+      transition: width .3s var(--ease-out);
     }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-pill {
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--bdr-hi);
+      padding: 9px 20px; transition: background .25s, color .25s;
+    }
+    .nav-pill:hover { background: var(--gold); color: var(--black); }
 
-    .nav-cta {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold) !important;
-      border: 1px solid var(--border);
-      padding: 10px 20px;
-      text-decoration: none;
-      transition: all 0.3s;
+    /* ── TICKER ───────────────────────────────────────────────── */
+    .ticker {
+      position: fixed; bottom: 0; inset-inline: 0; z-index: 500;
+      background: var(--s1); border-top: 1px solid var(--bdr);
+      overflow: hidden; padding: 9px 0;
+      transform: translateZ(0);
     }
-    .nav-cta:hover {
-      background: var(--gold) !important;
-      color: var(--black) !important;
+    .ticker-track {
+      display: flex; gap: 56px; white-space: nowrap;
+      animation: ticker-anim 30s linear infinite;
+      will-change: transform;  /* justified: continuous animation element */
     }
+    .ticker-track:hover { animation-play-state: paused; }
+    .t-i { display: flex; align-items: center; gap: 9px; font-size: 10px; letter-spacing: .1em; flex-shrink: 0; }
+    .t-p { color: var(--ink-2); text-transform: uppercase; letter-spacing: .14em; }
+    .t-v { color: var(--ink); font-weight: 500; }
+    .t-c { font-size: 9px; }
+    .up { color: var(--green); } .dn { color: var(--red); }
+    @keyframes ticker-anim { to { transform: translateX(-50%); } }
 
-    /* HERO */
+    /* ── HERO ─────────────────────────────────────────────────── */
     .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 120px 60px 80px;
-      position: relative;
-      overflow: hidden;
+      min-height: 100svh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: center;
+      padding: 120px 56px 80px;
+      position: relative; overflow: hidden;
     }
 
+    /* Gold radial glow — CSS only, no extra DOM */
     .hero::before {
       content: '';
-      position: absolute;
-      top: -200px; right: -100px;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      position: absolute; top: -10%; right: -5%;
+      width: 60vw; height: 60vw;
+      background: radial-gradient(ellipse, rgba(201,168,76,.06) 0%, transparent 65%);
       pointer-events: none;
     }
 
-    .hero-label {
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
+    .h-eyebrow {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 10px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold);
       margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
+      animation: up .9s var(--ease-out) both;
     }
-    .hero-label::before {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--gold);
+    .h-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); flex-shrink: 0; }
+
+    .h-title {
+      font-family: var(--font-ser);
+      font-size: clamp(56px, 8vw, 108px);
+      font-weight: 300; line-height: .9; letter-spacing: -.03em;
+      animation: up .9s var(--ease-out) .1s both;
+    }
+    .h-title b   { font-weight: 700; color: var(--gold); display: block; }
+    .h-title i   { font-style: italic; font-weight: 300; color: var(--ink-2); display: block; }
+    .h-title span{ display: block; }
+
+    .h-sub {
+      font-size: 12px; color: var(--ink-2); line-height: 2;
+      margin: 28px 0 40px; max-width: 380px;
+      animation: up .9s var(--ease-out) .2s both;
+    }
+    .h-sub strong { color: var(--ink); font-weight: 500; }
+
+    .h-btns {
+      display: flex; gap: 18px; align-items: center;
+      animation: up .9s var(--ease-out) .3s both;
     }
 
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(56px, 7vw, 96px);
-      font-weight: 300;
-      line-height: 1;
-      margin-bottom: 10px;
-      letter-spacing: -0.02em;
+    /* ── BUTTONS ──────────────────────────────────────────────── */
+    .btn-solid {
+      display: inline-block;
+      background: var(--gold); color: var(--black);
+      padding: 13px 32px; font-family: var(--font-mono);
+      font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-weight: 500;
+      transition: background .25s;
     }
-
-    .hero-title strong {
-      font-weight: 700;
-      color: var(--gold);
-      display: block;
-    }
-
-    .hero-title em {
-      font-style: italic;
-      font-weight: 300;
-      color: var(--text-muted);
-    }
-
-    .hero-tagline {
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-      margin: 28px 0 44px;
-      max-width: 380px;
-      line-height: 2;
-    }
-
-    .hero-tagline span {
-      color: var(--gold);
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: var(--black);
-      padding: 15px 36px;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-primary::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--gold-light);
-      transform: translateX(-100%);
-      transition: transform 0.3s;
-      z-index: -1;
-    }
-    .btn-primary:hover { background: var(--gold-light); }
+    .btn-solid:hover { background: var(--gold-lt); }
 
     .btn-ghost {
-      color: var(--text-muted);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: color 0.3s;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2);
+      transition: color .25s;
     }
+    .btn-ghost-line { width: 26px; height: 1px; background: currentColor; transition: width .3s var(--ease-out); }
     .btn-ghost:hover { color: var(--gold); }
-    .btn-ghost span {
-      display: inline-block;
-      width: 24px;
-      height: 1px;
-      background: currentColor;
-      transition: width 0.3s;
-    }
-    .btn-ghost:hover span { width: 40px; }
+    .btn-ghost:hover .btn-ghost-line { width: 44px; }
 
-    /* HERO IMAGE */
-    .hero-visual {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: 600px;
+    /* ── HERO PANEL ───────────────────────────────────────────── */
+    .hero-panel {
+      display: flex; flex-direction: column; gap: 2px;
+      animation: fade .9s var(--ease-out) .35s both;
     }
 
-    .hero-img-frame {
-      position: relative;
-      width: 360px;
-      height: 480px;
+    .panel-row {
+      display: flex; align-items: stretch; gap: 2px;
     }
 
-    .hero-img-frame::before {
-      content: '';
-      position: absolute;
-      top: -16px; right: -16px;
-      width: 100%; height: 100%;
-      border: 1px solid var(--gold);
-      opacity: 0.3;
-      z-index: 0;
+    .panel-block {
+      background: var(--s1); border: 1px solid var(--bdr);
+      padding: 18px 20px; flex: 1;
+      transition: border-color .3s;
     }
+    .panel-block:hover { border-color: var(--bdr-hi); }
 
-    .hero-img-frame::after {
-      content: '';
-      position: absolute;
-      bottom: -16px; left: -16px;
-      width: 80%; height: 80%;
-      background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
-      z-index: 0;
+    .panel-label {
+      font-size: 9px; letter-spacing: .24em; text-transform: uppercase;
+      color: var(--ink-3); margin-bottom: 8px;
     }
-
-    .hero-img-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top;
-      position: relative;
-      z-index: 1;
-      filter: grayscale(20%) contrast(1.05);
+    .panel-val {
+      font-family: var(--font-ser); font-size: 36px; font-weight: 700;
+      color: var(--gold); line-height: 1;
     }
+    .panel-sub { font-size: 9px; color: var(--ink-2); margin-top: 4px; }
 
-    .hero-stat-badge {
-      position: absolute;
-      bottom: -20px;
-      left: -40px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      padding: 20px 24px;
-      z-index: 2;
+    .panel-price-block {
+      background: var(--s1); border: 1px solid var(--bdr);
+      padding: 22px 20px;
+      display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 16px;
     }
-
-    .hero-stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 40px;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
+    .pp-main {
+      font-family: var(--font-ser); font-size: 56px; font-weight: 700;
+      color: var(--gold); line-height: 1; letter-spacing: -.02em;
     }
+    .pp-label { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); margin-top: 5px; }
+    .pp-chg { text-align: right; }
+    .pp-chg-v { font-size: 20px; font-weight: 500; line-height: 1; }
+    .pp-chg-p { font-size: 11px; color: var(--ink-2); margin-top: 3px; }
 
-    .hero-stat-label {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 4px;
+    .panel-live {
+      background: var(--s1); border: 1px solid var(--bdr);
+      padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-
-    .hero-ticker {
-      position: absolute;
-      top: 40px;
-      right: -20px;
-      background: var(--surface-3);
-      border: 1px solid var(--border);
-      padding: 12px 18px;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      z-index: 2;
+    .pl-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); }
+    .pl-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+      animation: blink 1.8s ease infinite;
     }
+    @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:.25 } }
 
-    .ticker-label {
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
+    /* Mini SVG chart */
+    .panel-chart {
+      background: var(--s1); border: 1px solid var(--bdr); height: 80px; overflow: hidden;
     }
+    .panel-chart svg { width: 100%; height: 100%; }
 
-    .ticker-value {
-      color: #4CAF50;
-      font-weight: 500;
-      margin-top: 4px;
-      font-size: 12px;
+    /* Instrument bias badges */
+    .panel-bias-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .bias-card {
+      background: var(--s2); border: 1px solid var(--bdr);
+      padding: 14px 16px;
+      display: flex; justify-content: space-between; align-items: center;
     }
-
-    /* MARQUEE */
-    .marquee-strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 18px 0;
-      overflow: hidden;
-      background: var(--surface);
+    .bias-name { font-size: 11px; font-weight: 500; letter-spacing: .06em; }
+    .bias-sub  { font-size: 9px; color: var(--ink-2); margin-top: 2px; letter-spacing: .06em; }
+    .badge {
+      font-size: 8px; letter-spacing: .2em; text-transform: uppercase;
+      padding: 4px 9px; border: 1px solid;
     }
+    .badge-buy  { color: var(--green); border-color: rgba(39,174,96,.35); background: rgba(39,174,96,.08); }
+    .badge-sell { color: var(--red);   border-color: rgba(192,57,43,.35);  background: rgba(192,57,43,.08);  }
 
+    /* ── MARQUEE ──────────────────────────────────────────────── */
+    .marquee {
+      border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr);
+      background: var(--s0); overflow: hidden; padding: 15px 0;
+    }
     .marquee-track {
-      display: flex;
-      gap: 60px;
-      animation: marquee 20s linear infinite;
-      white-space: nowrap;
+      display: flex; gap: 52px; white-space: nowrap;
+      animation: ticker-anim 24s linear infinite;
+      will-change: transform;
+    }
+    .mq-i { display: flex; align-items: center; gap: 16px; flex-shrink: 0; font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--ink-3); }
+    .mq-i b { color: var(--gold); font-size: 13px; font-weight: 400; }
+
+    /* ── SECTION SHELL ────────────────────────────────────────── */
+    .sec { padding: 112px 56px; position: relative; }
+    .sec-alt { background: var(--s0); }
+    .sec-dark { background: var(--black); }
+
+    /* Horizontal rule between sections */
+    .sec::after {
+      content: none; /* used selectively */
     }
 
-    .marquee-item {
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-shrink: 0;
-    }
-
-    .marquee-item span {
-      color: var(--gold);
-      font-size: 16px;
-    }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    /* SECTIONS */
-    section {
-      padding: 120px 60px;
-      position: relative;
-    }
-
-    .section-label {
-      font-size: 10px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 30px;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 300;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin-bottom: 60px;
-    }
-
-    .section-title strong { font-weight: 700; }
-
-    /* ABOUT */
-    .about {
-      background: var(--surface);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .about-text p {
-      color: var(--text-muted);
-      line-height: 2;
-      margin-bottom: 24px;
-      font-size: 13px;
-    }
-
-    .about-text p strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .about-highlight {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      font-style: italic;
-      font-weight: 300;
-      color: var(--gold);
-      border-left: 2px solid var(--gold);
-      padding-left: 24px;
-      line-height: 1.5;
-      margin: 40px 0;
-    }
-
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-
-    .stat-box {
-      background: var(--surface-2);
-      padding: 32px;
-      border: 1px solid var(--border);
-      transition: border-color 0.3s;
-    }
-
-    .stat-box:hover { border-color: var(--gold); }
-
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 52px;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    .stat-desc {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
-    /* SERVICES */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-
-    .service-card {
-      background: var(--surface-2);
-      padding: 48px 36px;
-      border: 1px solid transparent;
-      transition: all 0.4s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 2px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s;
-    }
-
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover { border-color: var(--border); background: var(--surface-3); }
-
-    .service-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 60px;
-      font-weight: 700;
-      color: var(--text-dim);
-      line-height: 1;
-      margin-bottom: 24px;
-      transition: color 0.4s;
-    }
-
-    .service-card:hover .service-number { color: var(--gold-dim); }
-
-    .service-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    .service-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.9;
-    }
-
-    .service-arrow {
-      display: inline-block;
-      margin-top: 28px;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.3s;
-    }
-
-    .service-card:hover .service-arrow {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* PORTFOLIO */
-    .portfolio { background: var(--surface); }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 2px;
-    }
-
-    .project-card {
-      position: relative;
-      overflow: hidden;
-      background: var(--surface-2);
-      cursor: none;
-    }
-
-    .project-card:nth-child(1) { grid-row: span 2; }
-
-    .project-img {
-      width: 100%;
-      height: 100%;
-      min-height: 280px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease, filter 0.6s ease;
-      filter: grayscale(30%) brightness(0.8);
-    }
-
-    .project-card:hover .project-img {
-      transform: scale(1.04);
-      filter: grayscale(0%) brightness(0.9);
-    }
-
-    .project-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 50%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 36px;
-    }
-
-    .project-tag {
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-
-    .project-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    /* TRADING SECTION */
-    .trading {
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .trading::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 1px;
-      height: 100%;
-      background: linear-gradient(to bottom, transparent, var(--gold-dim), transparent);
-      opacity: 0.3;
-    }
-
-    .trading-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .trading-metrics {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      margin-top: 40px;
-    }
-
-    .metric-card {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      padding: 24px;
-      position: relative;
-    }
-
-    .metric-label {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+    .sec-eye {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 9px; letter-spacing: .35em; text-transform: uppercase; color: var(--gold);
       margin-bottom: 12px;
     }
+    .sec-eye::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
 
-    .metric-val {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--gold);
+    .sec-h {
+      font-family: var(--font-ser);
+      font-size: clamp(34px, 5vw, 66px); font-weight: 300;
+      line-height: 1.02; letter-spacing: -.015em; margin-bottom: 60px;
+    }
+    .sec-h b { font-weight: 700; }
+
+    /* ── ABOUT ────────────────────────────────────────────────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+    .about-copy p { font-size: 13px; color: var(--ink-2); line-height: 2.05; margin-bottom: 20px; }
+    .about-copy p strong { color: var(--ink); font-weight: 500; }
+
+    .about-pull {
+      font-family: var(--font-ser); font-size: 24px; font-style: italic;
+      font-weight: 300; color: var(--gold);
+      border-left: 2px solid var(--gold); padding-left: 22px;
+      line-height: 1.55; margin: 32px 0;
     }
 
-    .metric-sub {
-      font-size: 10px;
-      color: var(--text-dim);
-      margin-top: 4px;
-    }
-
-    .metric-up { color: #4CAF50; }
-    .metric-down { color: #ef5350; }
-
-    .chart-placeholder {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      height: 300px;
-      display: flex;
-      align-items: flex-end;
-      padding: 20px;
-      gap: 6px;
-      overflow: hidden;
-    }
-
-    .bar {
-      flex: 1;
-      background: var(--gold);
-      opacity: 0.3;
-      border-radius: 2px 2px 0 0;
-      transition: opacity 0.3s;
-    }
-
-    .bar:hover { opacity: 0.8; }
-    .bar.win { opacity: 0.6; }
-    .bar.loss { background: #ef5350; opacity: 0.4; }
-
-    /* TESTIMONIALS */
-    .testimonials { background: var(--surface); }
-
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-
-    .testimonial-card {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      padding: 48px 40px;
-      transition: border-color 0.3s;
-    }
-
-    .testimonial-card:hover { border-color: var(--gold-dim); }
-
-    .quote-mark {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 80px;
-      color: var(--gold);
-      opacity: 0.3;
-      line-height: 0.6;
-      margin-bottom: 28px;
-      display: block;
-    }
-
-    .quote-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-style: italic;
-      font-weight: 300;
-      color: var(--text);
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
-
-    .quote-author {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .quote-role {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* CTA */
-    .cta-section {
-      background: var(--black);
-      text-align: center;
-      padding: 160px 60px;
+    .about-img {
       position: relative;
-      overflow: hidden;
+      /* clip image to a clean rectangle with a subtle gold border offset */
+    }
+    .about-img::before {
+      content: ''; position: absolute; inset: -12px -12px 12px 12px;
+      border: 1px solid rgba(201,168,76,.22); z-index: 0; pointer-events: none;
+    }
+    .about-img img {
+      position: relative; z-index: 1; width: 100%;
+      aspect-ratio: 3/4; object-fit: cover; object-position: top center;
+      filter: grayscale(18%) contrast(1.06);
     }
 
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    /* ── STRATEGIES ───────────────────────────────────────────── */
+    .strat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+
+    .strat-card {
+      background: var(--s1); border: 1px solid var(--bdr);
+      padding: 44px 38px; position: relative; overflow: hidden;
+      transition: border-color .35s;
     }
-
-    .cta-eyebrow {
-      font-size: 10px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 24px;
+    .strat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s var(--ease-out);
     }
+    .strat-card:hover { border-color: var(--bdr-hi); }
+    .strat-card:hover::before { transform: scaleX(1); }
 
-    .cta-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(48px, 8vw, 100px);
-      font-weight: 300;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      margin-bottom: 48px;
+    .strat-n {
+      font-family: var(--font-ser); font-size: 64px; font-weight: 700;
+      color: var(--ink-3); line-height: 1; margin-bottom: 18px;
+      transition: color .4s;
     }
+    .strat-card:hover .strat-n { color: var(--gold-dk); }
 
-    .cta-title strong { font-weight: 700; color: var(--gold); }
+    .strat-name { font-family: var(--font-sans); font-size: 21px; font-weight: 700; margin-bottom: 5px; }
+    .strat-pair { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
+    .strat-body { font-size: 12px; color: var(--ink-2); line-height: 2; margin-bottom: 14px; }
 
-    /* FOOTER */
+    .strat-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 28px; }
+    .sm { background: var(--s2); padding: 13px 11px; }
+    .sm-l { font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+    .sm-v { font-family: var(--font-ser); font-size: 26px; font-weight: 700; color: var(--gold); line-height: 1.1; margin-top: 3px; }
+    .sm-v.pos { color: var(--green); }
+    .sm-v.neg { color: var(--red); }
+
+    /* ── WIN RATE ─────────────────────────────────────────────── */
+    .wr-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 72px; align-items: center; }
+
+    .wr-rows { display: flex; flex-direction: column; gap: 2px; }
+    .wr-row {
+      display: grid; grid-template-columns: 90px 1fr 52px; gap: 14px;
+      align-items: center; padding: 12px 0;
+      border-bottom: 1px solid var(--bdr);
+    }
+    .wr-row:last-child { border-bottom: none; }
+    .wr-lbl { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
+    .wr-track { height: 8px; background: var(--s2); border-radius: 1px; position: relative; overflow: hidden; }
+    .wr-fill {
+      position: absolute; inset: 0 auto 0 0;
+      background: var(--gold); width: 0;
+      transition: width 1.4s var(--ease-out);
+    }
+    .wr-fill.pos { background: var(--green); }
+    .wr-fill.neg { background: var(--red); }
+    .wr-num { font-family: var(--font-ser); font-size: 20px; font-weight: 700; text-align: right; }
+    .wr-num.pos { color: var(--green); }
+    .wr-num.neg { color: var(--red); }
+
+    .wr-callout {
+      background: var(--s1); border: 1px solid var(--bdr); padding: 44px 38px;
+    }
+    .wr-big {
+      font-family: var(--font-ser); font-size: 88px; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .wr-big-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); margin: 6px 0 26px; }
+    .wr-callout p { font-size: 12px; color: var(--ink-2); line-height: 2; }
+    .wr-callout p strong { color: var(--ink); font-weight: 500; }
+    .wr-divider { width: 36px; height: 2px; background: var(--gold); margin: 28px 0; }
+
+    /* ── RULES ────────────────────────────────────────────────── */
+    .rules-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
+
+    .rules-list { display: flex; flex-direction: column; gap: 2px; }
+    .rule {
+      display: grid; grid-template-columns: 42px 1fr;
+      background: var(--s1); border: 1px solid var(--bdr);
+      transition: border-color .3s, background .3s;
+    }
+    .rule:hover { border-color: var(--bdr-hi); background: var(--s2); }
+    .rule-num {
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-ser); font-size: 20px; font-weight: 700; color: var(--gold-dk);
+      border-right: 1px solid var(--bdr); transition: color .3s;
+    }
+    .rule:hover .rule-num { color: var(--gold); }
+    .rule-body { padding: 16px 18px; }
+    .rule-title { font-size: 12px; font-weight: 500; color: var(--ink); margin-bottom: 3px; letter-spacing: .03em; }
+    .rule-desc  { font-size: 11px; color: var(--ink-2); line-height: 1.75; }
+
+    .rules-aside { display: flex; flex-direction: column; justify-content: center; }
+    .rules-quote {
+      font-family: var(--font-ser); font-size: 29px; font-style: italic;
+      font-weight: 300; color: var(--ink); line-height: 1.5; margin-bottom: 36px;
+    }
+    .rules-quote em { color: var(--gold); font-style: normal; }
+    .rules-aside p { font-size: 12px; color: var(--ink-2); line-height: 2; margin-bottom: 20px; }
+
+    .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 36px; }
+    .tag {
+      font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+      padding: 8px 16px; border: 1px solid var(--bdr-hi); color: var(--ink);
+      transition: background .25s, color .25s;
+    }
+    .tag:hover { background: var(--gold); color: var(--black); }
+    .tag.dim { border-color: var(--bdr); color: var(--ink-2); }
+    .tag.dim:hover { background: var(--s2); }
+
+    /* ── PSYCHOLOGY ───────────────────────────────────────────── */
+    .psych-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .psych-card {
+      background: var(--s1); border: 1px solid var(--bdr);
+      padding: 38px 30px; transition: border-color .3s;
+    }
+    .psych-card:hover { border-color: var(--bdr-hi); }
+
+    /* SVG icon instead of emoji — consistent with premium register */
+    .psych-icon {
+      width: 36px; height: 36px; margin-bottom: 20px;
+      color: var(--gold); opacity: .75;
+    }
+    .psych-title { font-family: var(--font-sans); font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .psych-body  { font-size: 12px; color: var(--ink-2); line-height: 1.9; }
+
+    /* ── MENTORSHIP CTA ───────────────────────────────────────── */
+    .cta-sec {
+      background: var(--black); text-align: center;
+      padding: 156px 56px; position: relative; overflow: hidden;
+    }
+    /* Layered glows instead of a jank floating ring */
+    .cta-sec::before, .cta-sec::after {
+      content: ''; position: absolute;
+      border-radius: 50%; pointer-events: none;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+    }
+    .cta-sec::before {
+      width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(201,168,76,.06) 0%, transparent 65%);
+    }
+    .cta-sec::after {
+      width: 30vw; height: 30vw;
+      background: radial-gradient(circle, rgba(201,168,76,.04) 0%, transparent 70%);
+    }
+    .cta-eye { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
+    .cta-h {
+      font-family: var(--font-ser);
+      font-size: clamp(44px, 8vw, 94px); font-weight: 300;
+      line-height: .92; letter-spacing: -.025em; margin-bottom: 28px;
+    }
+    .cta-h b { font-weight: 700; color: var(--gold); display: block; }
+    .cta-p { font-size: 13px; color: var(--ink-2); line-height: 2; max-width: 500px; margin: 0 auto 48px; }
+    .cta-btns { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
     footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 60px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 40px;
+      background: var(--s0); border-top: 1px solid var(--bdr);
+      padding: 48px 56px;
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center;
     }
-
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      font-weight: 600;
-      color: var(--gold);
+    .ft-brand { font-family: var(--font-ser); font-size: 24px; font-weight: 700; color: var(--gold); }
+    .ft-copy  { font-size: 10px; color: var(--ink-3); text-align: center; letter-spacing: .06em; }
+    .ft-links { display: flex; gap: 24px; justify-content: flex-end; }
+    .ft-links a {
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--ink-2); transition: color .2s;
     }
+    .ft-links a:hover { color: var(--gold); }
 
-    .footer-copy {
-      font-size: 11px;
-      color: var(--text-dim);
-      text-align: center;
-      letter-spacing: 0.05em;
-    }
+    /* ── REVEAL ANIMATION ─────────────────────────────────────── */
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
+    .rv.on { opacity: 1; transform: none; }
 
-    .social-links {
-      display: flex;
-      gap: 24px;
-      justify-content: flex-end;
-    }
+    /* ── KEYFRAMES ────────────────────────────────────────────── */
+    @keyframes up   { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+    @keyframes fade { from { opacity:0; } to { opacity:1; } }
 
-    .social-links a {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.25s;
-    }
-
-    .social-links a:hover { color: var(--gold); }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .hero-label { animation: fadeUp 0.8s ease both; }
-    .hero-title { animation: fadeUp 0.8s ease 0.15s both; }
-    .hero-tagline { animation: fadeUp 0.8s ease 0.3s both; }
-    .hero-actions { animation: fadeUp 0.8s ease 0.45s both; }
-    .hero-visual { animation: fadeIn 1.2s ease 0.4s both; }
-
-    /* DIVIDER */
-    .gold-line {
-      width: 60px; height: 1px;
-      background: var(--gold);
-      margin: 0 auto 60px;
-      display: block;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      nav { padding: 20px 28px; }
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      nav { padding: 16px 24px; }
       .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 100px 28px 60px; text-align: center; }
-      .hero-label { justify-content: center; }
-      .hero-actions { justify-content: center; }
-      .hero-visual { height: 380px; margin-top: 40px; }
-      .hero-img-frame { width: 260px; height: 340px; }
-      .hero-stat-badge { left: 0; bottom: -10px; }
-      section { padding: 80px 28px; }
-      .about-grid, .trading-layout, .testimonial-grid { grid-template-columns: 1fr; gap: 40px; }
-      .services-grid { grid-template-columns: 1fr; }
-      .portfolio-grid { grid-template-columns: 1fr; }
-      .project-card:nth-child(1) { grid-row: span 1; }
+      .sec, .cta-sec { padding: 80px 24px; }
+      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+      .about-grid, .wr-layout, .rules-layout, .strat-grid { grid-template-columns: 1fr; gap: 36px; }
+      .psych-grid { grid-template-columns: 1fr; }
       footer { grid-template-columns: 1fr; text-align: center; }
-      .social-links { justify-content: center; }
+      .ft-links { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- CUSTOM CURSOR -->
-  <div class="cursor-dot" id="cursor-dot"></div>
-  <div class="cursor-ring" id="cursor-ring"></div>
+  <!-- Custom cursor -->
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">Mr.<span>D</span></a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#trading">Trading</a></li>
-      <li><a href="#testimonials">Clients</a></li>
-      <li><a href="#contact" class="nav-cta">Contact</a></li>
+  <!-- Canvas noise — drawn once in JS, far cheaper than CSS SVG filter -->
+  <canvas id="noise" aria-hidden="true"></canvas>
+
+  <!-- ── NAV ── -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a href="#" class="nav-logo" aria-label="Mr. D The Analyst Home">
+      Mr. D <span class="nav-logo-tag">The Analyst</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#about"      data-section="about">About</a></li>
+      <li><a href="#strategies" data-section="strategies">Strategies</a></li>
+      <li><a href="#winrate"    data-section="winrate">Performance</a></li>
+      <li><a href="#system"     data-section="system">System</a></li>
+      <li><a href="#mentorship" class="nav-pill">Join Now</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-label">Based in Nigeria — Available Worldwide</div>
-      <h1 class="hero-title">
-        <em>The</em><br>
-        <strong>Analyst.</strong><br>
-        Builder.
+  <!-- ── HERO ── -->
+  <section class="hero" aria-label="Introduction">
+    <div class="hero-left">
+      <p class="h-eyebrow">XAUUSD · NAS100 · Systematic Trading</p>
+      <h1 class="h-title">
+        <i>The</i>
+        <b>Analyst.</b>
+        <span>Mr. D.</span>
       </h1>
-      <p class="hero-tagline">
-        Web Developer · Brand Strategist · Forex Trader<br>
-        <span>XAUUSD · NAS100 · Digital Excellence</span>
+      <p class="h-sub">
+        I trade gold and indices with a <strong>precision rulebook</strong> built from months of backtesting, live audits, and data-driven refinement. No emotion. No guessing. Just system.
       </p>
-      <div class="hero-actions">
-        <a href="#work" class="btn-primary">View My Work</a>
-        <a href="#contact" class="btn-ghost"><span></span>Book a Call</a>
+      <div class="h-btns">
+        <a href="#strategies" class="btn-solid">My Strategies</a>
+        <a href="#mentorship" class="btn-ghost"><span class="btn-ghost-line"></span>Join Mentorship</a>
       </div>
     </div>
 
-    <div class="hero-visual">
-      <div class="hero-img-frame">
-        <img src="https://mrd-portfolio.vercel.app/images/MRD.jpg" alt="Mr. D" />
+    <!-- RIGHT: live market panel -->
+    <div class="hero-panel" role="complementary" aria-label="Live market data">
+      <div class="panel-live">
+        <span class="pl-label">XAU / USD — Live Feed</span>
+        <span class="pl-dot" aria-label="Live"></span>
       </div>
-      <div class="hero-stat-badge">
-        <div class="hero-stat-num">3+</div>
-        <div class="hero-stat-label">Years Building</div>
+
+      <div class="panel-price-block">
+        <div>
+          <div class="pp-main" id="xau-price">2,638.40</div>
+          <div class="pp-label">Gold Spot · USD</div>
+        </div>
+        <div class="pp-chg">
+          <div class="pp-chg-v up" id="xau-chg">+12.40</div>
+          <div class="pp-chg-p up" id="xau-pct">+0.47%</div>
+        </div>
       </div>
-      <div class="hero-ticker">
-        <div class="ticker-label">XAU/USD</div>
-        <div class="ticker-value">▲ 2,638.40</div>
+
+      <div class="panel-chart" role="img" aria-label="Gold price chart">
+        <svg id="panel-svg" viewBox="0 0 400 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#C9A84C" stop-opacity=".28"/>
+              <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path id="c-area" fill="url(#cg)"/>
+          <path id="c-line" fill="none" stroke="#C9A84C" stroke-width="1.5"/>
+        </svg>
+      </div>
+
+      <div class="panel-row">
+        <div class="panel-block">
+          <div class="panel-label">Gold Buy W/R</div>
+          <div class="panel-val" style="color:var(--green)">60%</div>
+          <div class="panel-sub">Mon — Fri (excl. Thu)</div>
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">NAS100 W/R</div>
+          <div class="panel-val" style="color:var(--green)">89%</div>
+          <div class="panel-sub">Market structure</div>
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">Strategy</div>
+          <div class="panel-val" style="font-size:22px">v2.0</div>
+          <div class="panel-sub">Phantom Gold</div>
+        </div>
+      </div>
+
+      <div class="panel-bias-row">
+        <div class="bias-card">
+          <div>
+            <div class="bias-name">XAU / USD</div>
+            <div class="bias-sub">Gold Spot</div>
+          </div>
+          <span class="badge badge-buy">Buy Bias</span>
+        </div>
+        <div class="bias-card">
+          <div>
+            <div class="bias-name">NAS100</div>
+            <div class="bias-sub">US Tech 100</div>
+          </div>
+          <span class="badge badge-buy">Mkt Structure</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- MARQUEE -->
-  <div class="marquee-strip">
+  <!-- ── MARQUEE ── -->
+  <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <div class="marquee-item"><span>◆</span> Web Development</div>
-      <div class="marquee-item"><span>◆</span> Brand Strategy</div>
-      <div class="marquee-item"><span>◆</span> Forex Trading</div>
-      <div class="marquee-item"><span>◆</span> XAUUSD Analysis</div>
-      <div class="marquee-item"><span>◆</span> Digital Identity</div>
-      <div class="marquee-item"><span>◆</span> NAS100 Strategy</div>
-      <div class="marquee-item"><span>◆</span> Mr. D The Analyst</div>
-      <div class="marquee-item"><span>◆</span> Precision. System. Discipline.</div>
+      <div class="mq-i"><b>◆</b> XAUUSD Analysis</div>
+      <div class="mq-i"><b>◆</b> Phantom Gold v2.0</div>
+      <div class="mq-i"><b>◆</b> NAS100 Market Structure</div>
+      <div class="mq-i"><b>◆</b> NY Session Trader</div>
+      <div class="mq-i"><b>◆</b> Backtested. Proven. Disciplined.</div>
+      <div class="mq-i"><b>◆</b> Two-Tier Take Profit</div>
+      <div class="mq-i"><b>◆</b> Risk-First Execution</div>
+      <div class="mq-i"><b>◆</b> Mr. D The Analyst</div>
       <!-- duplicate for seamless loop -->
-      <div class="marquee-item"><span>◆</span> Web Development</div>
-      <div class="marquee-item"><span>◆</span> Brand Strategy</div>
-      <div class="marquee-item"><span>◆</span> Forex Trading</div>
-      <div class="marquee-item"><span>◆</span> XAUUSD Analysis</div>
-      <div class="marquee-item"><span>◆</span> Digital Identity</div>
-      <div class="marquee-item"><span>◆</span> NAS100 Strategy</div>
-      <div class="marquee-item"><span>◆</span> Mr. D The Analyst</div>
-      <div class="marquee-item"><span>◆</span> Precision. System. Discipline.</div>
+      <div class="mq-i"><b>◆</b> XAUUSD Analysis</div>
+      <div class="mq-i"><b>◆</b> Phantom Gold v2.0</div>
+      <div class="mq-i"><b>◆</b> NAS100 Market Structure</div>
+      <div class="mq-i"><b>◆</b> NY Session Trader</div>
+      <div class="mq-i"><b>◆</b> Backtested. Proven. Disciplined.</div>
+      <div class="mq-i"><b>◆</b> Two-Tier Take Profit</div>
+      <div class="mq-i"><b>◆</b> Risk-First Execution</div>
+      <div class="mq-i"><b>◆</b> Mr. D The Analyst</div>
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <section class="about" id="about">
+  <!-- ── ABOUT ── -->
+  <section class="sec sec-alt" id="about">
     <div class="about-grid">
-      <div class="about-text">
-        <div class="section-label">About</div>
-        <h2 class="section-title">Precision in<br><strong>every domain.</strong></h2>
-        <p>I'm Mr. D — a creative web developer, brand strategist, and systematic forex trader operating at the intersection of design, technology, and markets.</p>
-        <p>My work is built on <strong>systems and discipline</strong>. Whether I'm architecting a brand's digital identity or executing a gold trade, every decision is deliberate, data-driven, and built to scale.</p>
-        <div class="about-highlight">
-          "I don't build things that look good.<br>I build things that <em>work</em> good."
+      <div class="about-copy">
+        <p class="sec-eye">About</p>
+        <h2 class="sec-h">Built on<br><b>data, not hope.</b></h2>
+        <p>I'm Mr. D — a systematic forex and gold trader operating in the NY session. My edge isn't luck. It's a <strong>rulebook</strong> built from raw data, refined through loss, and proven through live execution.</p>
+        <p>My primary instrument is <strong>XAU/USD (Gold)</strong>, where I've developed the Phantom Gold v2.0 strategy — a precision entry model anchored around the NY open, with a strict two-tier TP system and a graded pre-entry framework.</p>
+        <div class="about-pull">"I don't trade setups I <em>feel</em>.<br>I trade setups I can <em>defend</em>."</div>
+        <p>My NAS100 strategy is built on <strong>market structure</strong> — reading higher highs, higher lows, and break of structure to trade both sides of the market. Buys and sells are both valid when the structure confirms it.</p>
+      </div>
+      <div class="about-img rv">
+        <img src="https://mrd-portfolio.vercel.app/images/MRD.jpg" alt="Mr. D The Analyst" loading="lazy" width="480" height="640"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STRATEGIES ── -->
+  <section class="sec sec-dark" id="strategies">
+    <p class="sec-eye">Strategies</p>
+    <h2 class="sec-h">Two systems.<br><b>Zero guesswork.</b></h2>
+    <div class="strat-grid">
+      <div class="strat-card rv">
+        <div class="strat-n">01</div>
+        <div class="strat-name">Phantom Gold</div>
+        <div class="strat-pair">XAU / USD — Gold Spot</div>
+        <p class="strat-body">Version 2.0 of my flagship gold strategy. Built on a NY session candle method — 12:45 PM vertical, 1:15 PM candle direction confirmed by the next 5-minute candle. Two-tier TP, strict entry conditions, and a mandatory quality grade before execution.</p>
+        <p class="strat-body">Mon/Fri are strongest days. Thursday permanently removed after a 36% win rate. Buys dominate at 60%. Sells sit at 30%.</p>
+        <div class="strat-metrics">
+          <div class="sm"><div class="sm-l">Buy W/R</div><div class="sm-v pos">60%</div></div>
+          <div class="sm"><div class="sm-l">Sell W/R</div><div class="sm-v neg">30%</div></div>
+          <div class="sm"><div class="sm-l">Version</div><div class="sm-v">v2.0</div></div>
         </div>
-        <p>From University of Uyo to the charts, I've merged analytical thinking with creative execution to build a reputation that speaks for itself — Mr. D the Analyst.</p>
       </div>
 
-      <div class="about-stats">
-        <div class="stat-box">
-          <div class="stat-num">12+</div>
-          <div class="stat-desc">Projects delivered</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">60%</div>
-          <div class="stat-desc">Gold buy win rate</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">89%</div>
-          <div class="stat-desc">NAS100 sell rate</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">∞</div>
-          <div class="stat-desc">Drive to dominate</div>
+      <div class="strat-card rv" style="transition-delay:.14s">
+        <div class="strat-n">02</div>
+        <div class="strat-name">NAS100 Market Structure</div>
+        <div class="strat-pair">NAS100 — US Tech Index</div>
+        <p class="strat-body">A market structure-driven system built on reading price objectively — higher highs, higher lows, break of structure, and change of character. Both buy and sell setups are valid when structure confirms the move. The bias follows the market, not a fixed direction.</p>
+        <p class="strat-body">Execution is governed by a strict protocol: confirmation before entry, two-tier TP structure, and a mandatory quality grade on every setup. No structure confirmation — no trade.</p>
+        <div class="strat-metrics">
+          <div class="sm"><div class="sm-l">Approach</div><div class="sm-v" style="font-size:16px">Mkt Str.</div></div>
+          <div class="sm"><div class="sm-l">Direction</div><div class="sm-v" style="font-size:16px">Both</div></div>
+          <div class="sm"><div class="sm-l">Rules</div><div class="sm-v">12</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="section-label">Services</div>
-    <h2 class="section-title">What I<br><strong>deliver.</strong></h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-number">01</div>
-        <div class="service-name">Web Design & Dev</div>
-        <p class="service-desc">Clean, responsive, conversion-focused websites for brands and businesses who refuse to be average. Built to perform, designed to impress.</p>
-        <div class="service-arrow">Explore →</div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">02</div>
-        <div class="service-name">Brand Strategy</div>
-        <p class="service-desc">Full identity development — from positioning and visual language to tone of voice. Your brand will have a direction, a story, and an edge.</p>
-        <div class="service-arrow">Explore →</div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">03</div>
-        <div class="service-name">Forex & Gold Trading</div>
-        <p class="service-desc">Systematic XAUUSD and NAS100 strategies with proven win rates. Analysis, mentorship, and insight from a trader who runs by the rulebook.</p>
-        <div class="service-arrow">Explore →</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTFOLIO -->
-  <section class="portfolio" id="work">
-    <div class="section-label">Work</div>
-    <h2 class="section-title">Featured<br><strong>projects.</strong></h2>
-    <div class="portfolio-grid">
-      <div class="project-card">
-        <img src="https://mrd-portfolio.vercel.app/images/urbannest.jpg" alt="UrbanNest" class="project-img" />
-        <div class="project-overlay">
-          <div class="project-tag">Web Design · UX</div>
-          <div class="project-title">UrbanNest Booking Platform</div>
-        </div>
-      </div>
-      <div class="project-card">
-        <img src="https://mrd-portfolio.vercel.app/images/vaultabank.jpg" alt="VaultaBank" class="project-img" />
-        <div class="project-overlay">
-          <div class="project-tag">Fintech · Brand</div>
-          <div class="project-title">VaultaBank Digital Identity</div>
-        </div>
-      </div>
-      <div class="project-card">
-        <img src="https://mrd-portfolio.vercel.app/images/mr_d.jpg" alt="Mr. D" class="project-img" />
-        <div class="project-overlay">
-          <div class="project-tag">Personal Branding</div>
-          <div class="project-title">Mr. D — Brand & Portfolio</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TRADING -->
-  <section class="trading" id="trading">
-    <div class="trading-layout">
+  <!-- ── WIN RATE ── -->
+  <section class="sec sec-alt" id="winrate">
+    <div class="wr-layout">
       <div>
-        <div class="section-label">Trading</div>
-        <h2 class="section-title">Markets are<br><strong>my edge.</strong></h2>
-        <p style="color:var(--text-muted); font-size:13px; line-height:2; margin-bottom: 20px;">
-          I trade XAUUSD and NAS100 with a strict, data-backed rulebook. No guesswork. No emotions. Just systematic execution and continuous refinement.
-        </p>
-        <p style="color:var(--text-muted); font-size:13px; line-height:2;">
-          My Phantom Gold strategy (v2.0) and NAS100 sell-only system are built on months of backtesting, live audits, and psychological discipline.
-        </p>
-        <div class="trading-metrics">
-          <div class="metric-card">
-            <div class="metric-label">Gold Buy Rate</div>
-            <div class="metric-val">60%</div>
-            <div class="metric-sub metric-up">↑ Strong</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">NAS100 Sells</div>
-            <div class="metric-val">89%</div>
-            <div class="metric-sub metric-up">↑ Dominant</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Gold Sells</div>
-            <div class="metric-val">30%</div>
-            <div class="metric-sub metric-down">↓ Avoided</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Primary Pair</div>
-            <div class="metric-val" style="font-size:24px;">XAU</div>
-            <div class="metric-sub">Gold / USD</div>
-          </div>
+        <p class="sec-eye">Performance</p>
+        <h2 class="sec-h">The numbers<br><b>don't lie.</b></h2>
+        <div class="wr-rows" id="wr-rows">
+          <div class="wr-row"><span class="wr-lbl">Gold Buy</span><div class="wr-track"><div class="wr-fill pos" data-w="60"></div></div><span class="wr-num pos">60%</span></div>
+          <div class="wr-row"><span class="wr-lbl">NAS100</span><div class="wr-track"><div class="wr-fill pos" data-w="89"></div></div><span class="wr-num pos">89%</span></div>
+          <div class="wr-row"><span class="wr-lbl">Gold Sell</span><div class="wr-track"><div class="wr-fill neg" data-w="30"></div></div><span class="wr-num neg">30%</span></div>
+          <div class="wr-row"><span class="wr-lbl">Thursday</span><div class="wr-track"><div class="wr-fill neg" data-w="36"></div></div><span class="wr-num neg">36%</span></div>
+          <div class="wr-row"><span class="wr-lbl">Mon / Fri</span><div class="wr-track"><div class="wr-fill pos" data-w="72"></div></div><span class="wr-num pos">72%</span></div>
         </div>
+        <p style="font-size:10px;color:var(--ink-3);margin-top:20px;letter-spacing:.07em">Sep 2025 – Mar 2026 · live + backtested data</p>
       </div>
 
+      <div class="wr-callout rv">
+        <div class="wr-big">89%</div>
+        <div class="wr-big-label">NAS100 Win Rate — Market Structure</div>
+        <p>Not a target. An <strong>observed result</strong> built on reading market structure — structure-confirmed entries on both the buy and sell side, governed by the same execution protocol.</p>
+        <div class="wr-divider"></div>
+        <p>The most costly habit in my Gold trading was <strong>cutting winners short</strong>. The two-tier TP system was built specifically to eliminate this. Every refinement comes from data — not gut.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RULES ── -->
+  <section class="sec sec-dark" id="system">
+    <div class="rules-layout">
       <div>
-        <div class="chart-placeholder" id="chart">
+        <p class="sec-eye">The System</p>
+        <h2 class="sec-h">Rules before<br><b>every trade.</b></h2>
+        <div class="rules-list">
+          <div class="rule rv">
+            <div class="rule-num">1</div>
+            <div class="rule-body"><div class="rule-title">NY Session Only</div><div class="rule-desc">All entries taken in the New York session. No London chasing, no overnight holds.</div></div>
+          </div>
+          <div class="rule rv" style="transition-delay:.05s">
+            <div class="rule-num">2</div>
+            <div class="rule-body"><div class="rule-title">Confirmed Close Entry</div><div class="rule-desc">Never enter on a zone touch. Wait for candle close with confirmation before executing.</div></div>
+          </div>
+          <div class="rule rv" style="transition-delay:.10s">
+            <div class="rule-num">3</div>
+            <div class="rule-body"><div class="rule-title">Two-Tier Take Profit</div><div class="rule-desc">TP1 secures partials at 2R. TP2 runs the trade to 4R. Single-TP exits are a protocol violation.</div></div>
+          </div>
+          <div class="rule rv" style="transition-delay:.15s">
+            <div class="rule-num">4</div>
+            <div class="rule-body"><div class="rule-title">No Thursday Gold</div><div class="rule-desc">Thursday permanently removed after a 36% win rate. The data made the decision — not me.</div></div>
+          </div>
+          <div class="rule rv" style="transition-delay:.20s">
+            <div class="rule-num">5</div>
+            <div class="rule-body"><div class="rule-title">Grade Before Entry</div><div class="rule-desc">Every setup graded A+ to F. Only A and B grades qualify for execution.</div></div>
+          </div>
+          <div class="rule rv" style="transition-delay:.25s">
+            <div class="rule-num">6</div>
+            <div class="rule-body"><div class="rule-title">Loss Streak Protocol</div><div class="rule-desc">3 consecutive losses triggers a mandatory review. No revenge trades. No exceptions.</div></div>
+          </div>
         </div>
-        <p style="font-size:10px; color:var(--text-dim); margin-top: 12px; letter-spacing: 0.1em; text-transform:uppercase;">Simulated performance distribution · XAUUSD</p>
+      </div>
+
+      <div class="rules-aside rv">
+        <p class="rules-quote">"The market doesn't care about your confidence. It rewards your <em>system</em>."</p>
+        <p>Every rule was written in the language of loss — a mistake made, analyzed, and converted into a constraint that protects future capital.</p>
+        <p>The rulebook isn't a suggestion. It is the product. <span style="color:var(--gold)">Discipline is the strategy.</span></p>
+        <div>
+          <div style="font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-top:36px;margin-bottom:14px">Instruments</div>
+          <div class="tag-row">
+            <span class="tag">XAU/USD</span>
+            <span class="tag">NAS100</span>
+            <span class="tag dim">EUR/USD</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="testimonials" id="testimonials">
-    <div class="section-label">Testimonials</div>
-    <h2 class="section-title">What clients<br><strong>say.</strong></h2>
-    <div class="testimonial-grid">
-      <div class="testimonial-card">
-        <span class="quote-mark">"</span>
-        <p class="quote-text">Mr. D gave my brand life and my business a digital presence I never imagined was possible. He didn't just design — he strategized.</p>
-        <div class="quote-author">Jessica Ade</div>
-        <div class="quote-role">Founder, Independent Brand</div>
+  <!-- ── PSYCHOLOGY ── -->
+  <section class="sec sec-alt">
+    <p class="sec-eye">Trading Psychology</p>
+    <h2 class="sec-h">The edge between<br><b>the ears.</b></h2>
+    <div class="psych-grid">
+
+      <div class="psych-card rv">
+        <!-- Ice/cold SVG icon -->
+        <svg class="psych-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="18" y1="2" x2="18" y2="34" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="2" y1="18" x2="34" y2="18" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="6.5" y1="6.5" x2="29.5" y2="29.5" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="29.5" y1="6.5" x2="6.5" y2="29.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="18" cy="18" r="4" fill="currentColor" opacity=".5"/>
+        </svg>
+        <div class="psych-title">Emotion-Neutral Execution</div>
+        <p class="psych-body">A trade is a business decision. Not a feeling. Win or loss, the process stays identical. The rulebook governs every click — not mood, not streak, not hope.</p>
       </div>
-      <div class="testimonial-card">
-        <span class="quote-mark">"</span>
-        <p class="quote-text">The precision and discipline he brings to his work is unlike anything I've seen. His trading analysis is sharp, structured, and profitable.</p>
-        <div class="quote-author">Verified Mentee</div>
-        <div class="quote-role">Forex Trader</div>
+
+      <div class="psych-card rv" style="transition-delay:.1s">
+        <!-- Journal/book SVG icon -->
+        <svg class="psych-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="8" y="4" width="20" height="28" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="8" y1="4" x2="8" y2="32" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <line x1="13" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="13" y1="17" x2="23" y2="17" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="13" y1="22" x2="19" y2="22" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <div class="psych-title">Mandatory Journaling</div>
+        <p class="psych-body">Every trade is graded, journaled, and reviewed. No journal entry — no next trade. Pattern recognition comes from data and records, not from memory and selective recall.</p>
+      </div>
+
+      <div class="psych-card rv" style="transition-delay:.2s">
+        <!-- Scale/balance SVG icon -->
+        <svg class="psych-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="18" y1="4" x2="18" y2="32" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="10" y1="32" x2="26" y2="32" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="4" y1="10" x2="18" y2="4" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="18" y1="4" x2="32" y2="10" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M4 10 Q4 17 8 17 Q12 17 12 10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M24 10 Q24 14 28 14 Q32 14 32 10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+        </svg>
+        <div class="psych-title">Weekly Reset Protocol</div>
+        <p class="psych-body">Weekly-cycle resets replace the dangerous "reset after one win" habit. Risk is calculated fresh at the start of each week — never mid-streak, never mid-emotion.</p>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-section" id="contact">
-    <div class="cta-eyebrow">Let's work together</div>
-    <h2 class="cta-title">
-      Ready to<br><strong>elevate?</strong>
-    </h2>
-    <a href="mailto:contact@mrd.com" class="btn-primary">Book a Discovery Call</a>
+  <!-- ── MENTORSHIP CTA ── -->
+  <section class="cta-sec sec-dark" id="mentorship">
+    <p class="cta-eye">Limited Spots Available</p>
+    <h2 class="cta-h">Trade with<br><b>a system.</b></h2>
+    <p class="cta-p">I'm onboarding a select group of traders serious about building a rules-based edge. No shortcuts. No hype. The same system I use — explained, drilled, and executed together.</p>
+    <div class="cta-btns">
+      <a href="https://www.x.com/mrd_uwem" target="_blank" rel="noopener" class="btn-solid">Connect on X</a>
+      <a href="https://www.instagram.com/uwem_mr_d" target="_blank" rel="noopener" class="btn-ghost"><span class="btn-ghost-line"></span>Follow on Instagram</a>
+    </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ── TICKER ── -->
+  <div class="ticker" role="marquee" aria-label="Live market prices">
+    <div class="ticker-track">
+      <div class="t-i"><span class="t-p">XAU/USD</span><span class="t-v" id="t-xau">2,638.40</span><span class="t-c up">+0.47%</span></div>
+      <div class="t-i"><span class="t-p">NAS100</span><span class="t-v">19,842</span><span class="t-c up">+0.31%</span></div>
+      <div class="t-i"><span class="t-p">EUR/USD</span><span class="t-v">1.0832</span><span class="t-c dn">−0.12%</span></div>
+      <div class="t-i"><span class="t-p">GBP/USD</span><span class="t-v">1.2714</span><span class="t-c up">+0.08%</span></div>
+      <div class="t-i"><span class="t-p">DXY</span><span class="t-v">104.22</span><span class="t-c dn">−0.21%</span></div>
+      <div class="t-i"><span class="t-p">OIL</span><span class="t-v">81.44</span><span class="t-c up">+0.55%</span></div>
+      <!-- dup for seamless loop -->
+      <div class="t-i"><span class="t-p">XAU/USD</span><span class="t-v">2,638.40</span><span class="t-c up">+0.47%</span></div>
+      <div class="t-i"><span class="t-p">NAS100</span><span class="t-v">19,842</span><span class="t-c up">+0.31%</span></div>
+      <div class="t-i"><span class="t-p">EUR/USD</span><span class="t-v">1.0832</span><span class="t-c dn">−0.12%</span></div>
+      <div class="t-i"><span class="t-p">GBP/USD</span><span class="t-v">1.2714</span><span class="t-c up">+0.08%</span></div>
+      <div class="t-i"><span class="t-p">DXY</span><span class="t-v">104.22</span><span class="t-c dn">−0.21%</span></div>
+      <div class="t-i"><span class="t-p">OIL</span><span class="t-v">81.44</span><span class="t-c up">+0.55%</span></div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
   <footer>
-    <div class="footer-logo">Mr.D</div>
-    <div class="footer-copy">© 2025 Mr. D. All rights reserved.</div>
-    <div class="social-links">
-      <a href="https://www.instagram.com/uwem_mr_d" target="_blank">Instagram</a>
-      <a href="https://www.x.com/mrd_uwem" target="_blank">X (Twitter)</a>
-      <a href="#" target="_blank">LinkedIn</a>
-    </div>
+    <div class="ft-brand">Mr. D</div>
+    <div class="ft-copy">© 2025 Mr. D The Analyst · All rights reserved</div>
+    <nav class="ft-links" aria-label="Social links">
+      <a href="https://www.instagram.com/uwem_mr_d" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.x.com/mrd_uwem" target="_blank" rel="noopener">X (Twitter)</a>
+      <a href="#" target="_blank" rel="noopener">Telegram</a>
+    </nav>
   </footer>
 
   <script>
-    // Custom cursor
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
+  (() => {
+    'use strict';
+
+    /* ── NOISE CANVAS — drawn once, dirt cheap ── */
+    const canvas = document.getElementById('noise');
+    const ctx    = canvas.getContext('2d');
+    function drawNoise() {
+      const W = canvas.width  = window.innerWidth;
+      const H = canvas.height = window.innerHeight;
+      const img  = ctx.createImageData(W, H);
+      const data = img.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const v = Math.random() * 255 | 0;
+        data[i] = data[i+1] = data[i+2] = v;
+        data[i+3] = 18; // alpha — keep it subtle
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    drawNoise();
+    /* Redraw only on resize, not every frame */
+    window.addEventListener('resize', drawNoise, { passive: true });
+
+    /* ── CURSOR ── */
+    const dot  = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0, rafId;
 
     document.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
-    });
+      dot.style.transform = `translate(${mx}px,${my}px)`;
+      if (!rafId) rafId = requestAnimationFrame(trackRing);
+    }, { passive: true });
 
-    function animateRing() {
-      rx += (mx - rx - 18) * 0.12;
-      ry += (my - ry - 18) * 0.12;
-      ring.style.transform = `translate(${rx}px, ${ry}px)`;
-      requestAnimationFrame(animateRing);
+    function trackRing() {
+      rx += (mx - rx) * .10;
+      ry += (my - ry) * .10;
+      ring.style.transform = `translate(${rx - 16}px,${ry - 16}px)`;
+      rafId = Math.abs(mx - rx) > .3 || Math.abs(my - ry) > .3
+        ? requestAnimationFrame(trackRing)
+        : 0; // stop rAF when settled — don't burn GPU while idle
     }
-    animateRing();
 
     document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        dot.style.transform += ' scale(2)';
-        ring.style.width = '60px';
-        ring.style.height = '60px';
-        ring.style.opacity = '0.5';
-      });
-      el.addEventListener('mouseleave', () => {
-        ring.style.width = '36px';
-        ring.style.height = '36px';
-        ring.style.opacity = '1';
-      });
+      el.addEventListener('mouseenter', () => document.body.classList.add('c-hover'),    { passive: true });
+      el.addEventListener('mouseleave', () => document.body.classList.remove('c-hover'), { passive: true });
     });
 
-    // Generate chart bars
-    const chart = document.getElementById('chart');
-    const bars = [40,65,55,80,45,70,90,60,75,85,50,95,65,78,88,55,72,83,68,91,77,62,85,70,93,58,80,74,88,65];
-    bars.forEach((h, i) => {
-      const bar = document.createElement('div');
-      bar.className = 'bar' + (h > 65 ? ' win' : ' loss');
-      bar.style.height = h + '%';
-      bar.style.animationDelay = (i * 0.05) + 's';
-      chart.appendChild(bar);
-    });
+    /* ── NAV SCROLL STATE ── */
+    const nav = document.getElementById('nav');
+    const navLinks = nav.querySelectorAll('[data-section]');
 
-    // Intersection observer for scroll reveals
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
+    const onScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+
+      /* Active section highlight */
+      let current = '';
+      document.querySelectorAll('section[id]').forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
       });
-    }, { threshold: 0.1 });
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.section === current));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    document.querySelectorAll('.service-card, .stat-box, .testimonial-card, .metric-card, .project-card').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease, border-color 0.3s';
-      observer.observe(el);
-    });
+    /* ── SCROLL REVEAL ── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+    /* ── WIN RATE BARS — animate once on scroll ── */
+    const wrIO = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      document.querySelectorAll('.wr-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+      wrIO.disconnect();
+    }, { threshold: .25 });
+    const wrEl = document.getElementById('wr-rows');
+    if (wrEl) wrIO.observe(wrEl);
+
+    /* ── MINI CHART ── */
+    (function buildChart() {
+      const pts = []; let v = 40;
+      for (let i = 0; i < 60; i++) {
+        v = Math.max(8, Math.min(82, v + (Math.random() - .46) * 7));
+        pts.push(v);
+      }
+      const W = 400, H = 80;
+      const xs = pts.map((_, i) => (i / (pts.length - 1)) * W);
+      const ys = pts.map(p => H - (p / 100) * H);
+      let ld = `M${xs[0]} ${ys[0]}`, ad = `M${xs[0]} ${H}L${xs[0]} ${ys[0]}`;
+      for (let i = 1; i < xs.length; i++) {
+        const cx = (xs[i-1] + xs[i]) / 2;
+        ld += ` C${cx} ${ys[i-1]},${cx} ${ys[i]},${xs[i]} ${ys[i]}`;
+        ad += ` C${cx} ${ys[i-1]},${cx} ${ys[i]},${xs[i]} ${ys[i]}`;
+      }
+      ad += `L${xs[xs.length-1]} ${H}Z`;
+      document.getElementById('c-line').setAttribute('d', ld);
+      document.getElementById('c-area').setAttribute('d', ad);
+    })();
+
+    /* ── PRICE FLICKER — rAF based, no layout thrash ── */
+    let base = 2638.40, lastFlicker = 0;
+    const INTERVAL = 2400; // ms between ticks
+    const priceEl = document.getElementById('xau-price');
+    const chgEl   = document.getElementById('xau-chg');
+    const pctEl   = document.getElementById('xau-pct');
+
+    function flickerPrice(ts) {
+      requestAnimationFrame(flickerPrice);
+      if (ts - lastFlicker < INTERVAL) return;
+      lastFlicker = ts;
+
+      const delta = (Math.random() - .48) * .7;
+      base = Math.max(2615, Math.min(2662, base + delta));
+      const chg = base - 2626;
+      const pct = (chg / 2626 * 100).toFixed(2);
+      const sign = chg >= 0;
+
+      priceEl.textContent = base.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      chgEl.textContent   = (sign ? '+' : '') + chg.toFixed(2);
+      pctEl.textContent   = (sign ? '+' : '') + pct + '%';
+      chgEl.className = 'pp-chg-v ' + (sign ? 'up' : 'dn');
+      pctEl.className = 'pp-chg-p ' + (sign ? 'up' : 'dn');
+    }
+    requestAnimationFrame(flickerPrice);
+
+  })();
   </script>
 </body>
 </html>
